@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>clipboard</title>
+</head>
+<body>
+  <button id="nav">navigator</button>
+  <button id="cmd">command</button>
+  <script>
+    const text = 'SOME TEXT';
+    document.getElementById('nav').addEventListener('click', () => {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert('Copied!');
+        })
+        .catch(err => {
+          alert(err);
+        });
+    });
+    document.getElementById('cmd').addEventListener('click', () => {
+      const input = document.createElement('textarea');
+      document.body.appendChild(input);
+      input.value = text;
+      input.focus();
+      input.select();
+      const result = document.execCommand('Copy');
+      input.remove();
+      if (result) {
+        alert('Command succeeded');
+      } else {
+        alert('Command failed');
+      }
+    });
+  </script>
+</body>
+</html>
